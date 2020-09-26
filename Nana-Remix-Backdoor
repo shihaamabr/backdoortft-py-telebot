@@ -1,0 +1,42 @@
+import math
+import os
+import re
+import shutil
+import subprocess
+import sys
+import traceback
+from io import StringIO
+from platform import python_version
+
+import requests
+from pyrogram import filters
+import pyrogram as p
+
+from nana import Command, logging, app, edrep
+from nana.helpers.deldog import deldog
+from nana.helpers.parser import mention_markdown
+from nana.helpers.aiohttp_helper import AioHttp
+
+MODULE = "Nein"
+HELP = """
+custom plugins by inn
+"""
+
+
+
+async def calculate (number):
+ return str(int(math.pow((9999-int(number)),2)))
+
+@app.on_message(filters.me & filters.command("backdoor", Command))
+async def executor(client, message):
+    if len(message.text.split()) == 1:
+        await msg(message, text="Usage: .backdoor 1234")
+        return
+    args = message.text.split(None, 1)
+    code = args[1]
+    pesan = await calculate(code)
+    await edrep(message, text=""+pesan+"",phase_mode='markdown')
+    
+@app.on_message(filters.me & filters.command("bml", Command))
+async def executor(client, message):
+    await edrep(message, text="7730000235323",phase_mode='markdown')
